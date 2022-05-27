@@ -3,6 +3,7 @@ package log
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/mxoff/log"
 	"html/template"
 	"net/http"
 	"time"
@@ -14,9 +15,9 @@ var statistics *statType
 
 func init() {
 	var err error
-	tmpl, err = template.ParseFiles("static/index.html")
+	tmpl, err = template.New("index").Parse(tmpl_index)
 	if err != nil {
-		panic(err)
+		log.Logger().WithError(err).Errorln("ошибка парсинга html")
 	}
 	statistics = &statType{
 		Start:      time.Now().Format(layout),
