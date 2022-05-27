@@ -1,3 +1,6 @@
+package log
+
+var tmpl_index = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,3 +78,5 @@
 </body>
 </html>
 
+
+`

@@ -25,7 +25,7 @@ func TestTempMain(t *testing.T) {
 	serverUrl := fmt.Sprintf("%s:%d", "localhost", 8080)
 	err := http.ListenAndServe(serverUrl, r)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 }
 
