@@ -1,4 +1,4 @@
-package main
+package log
 
 func (l *logType) Println(message string) {
 	l.types = "INFO"
