@@ -10,6 +10,8 @@ var tmpl_index = `
         BODY {
             font-family: 'Monospace', serif; /* Гарнитура текста */
             font-size: 80%; /* Размер шрифта в процентах */
+    		margin: 0;
+    		padding: 0;
         }
         TABLE {
             border: 1px solid #656565; /* Рамка вокруг таблицы */
@@ -30,10 +32,10 @@ var tmpl_index = `
             color: #5977ef; /* Цвет текста */
         }
         .date{
-            width:10%;
+            width:8%;
             white-space: nowrap;
             color: #5a5a5a; /* Цвет текста */
-            font-size: 9pt; /
+            font-size: 8pt; /
         }
         .ERRO {
             color: #ffffff; /* Цвет текста */
@@ -48,12 +50,13 @@ var tmpl_index = `
             background: #ffdb00; /* Цвет фона */
         }
 
+
         .atr{
-             width:5%;
-           white-space: nowrap;
+            width:5%;
+           	white-space: nowrap;
 
             color: #5a5a5a; /* Цвет текста */
-            font-size: 7pt; /
+            font-size: 8pt; /
         }
 
     </style>
@@ -67,7 +70,7 @@ var tmpl_index = `
 {{range .}}
     <tr>
         <td class="date"> {{.Date}} </td>
-        <td class="{{.Types}}"> {{.Message}} </td>
+        <td class="{{.Types}}" nowrap> {{.Message}} </td>
         <td> <div class="atr"> {{range .Atr}} {{.}}<br> {{end}} </div> </td>
     </tr>
 {{end}}

@@ -11,7 +11,7 @@ import (
 
 var tmpl *template.Template
 var print []printType
-var statistics *statType
+var statistics *statErrorType
 
 func init() {
 	var err error
@@ -19,7 +19,7 @@ func init() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	statistics = &statType{
+	statistics = &statErrorType{
 		Start:      time.Now().Format(layout),
 		CountError: 0,
 		CountLog:   0,
@@ -48,18 +48,53 @@ func addPrint(l *logType) {
 	})
 }
 
-func Handler(w http.ResponseWriter, r *http.Request) {
+func HandlerLog(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, print)
 }
 
-func HandlerStat(w http.ResponseWriter, r *http.Request) {
+func HandlerCommon(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(statistics)
 }
 
-func GetStatUrl() string {
-	return "/admin/stat"
+func HandlerStat(w http.ResponseWriter, r *http.Request) {
+	json.NewEncoder(w).Encode(stat)
 }
 
-func GetHandlerUrl() string {
-	return "/admin/log"
+var generalUrl = "/tool/"
+
+func GetGeneralUrl() string {
+	return generalUrl
+}
+
+// SetGeneralUrl string must start and end with "/"
+func SetGeneralUrl(u string) string {
+	if u != "" && (u[:1] == "/" && u[len(u)-1:] == "/") {
+		generalUrl = u
+	}
+	return generalUrl
+}
+
+func GetUrlGeneral() string {
+	return generalUrl
+}
+
+func GetUrlLog() string {
+	return generalUrl + "log"
+}
+
+func GetUrlStat() string {
+	return generalUrl + "stat"
+}
+
+func Middleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+		if r.RequestURI != GetUrlLog() &&
+			r.RequestURI != GetUrlGeneral() &&
+			r.RequestURI != GetUrlStat() {
+			addStat(r.RequestURI)
+		}
+
+		next.ServeHTTP(w, r)
+	})
 }

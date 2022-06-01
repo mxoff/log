@@ -2,14 +2,16 @@
 
 ## Install
 ```sh
-go get github.com/.../log
+go get github.com/mxoff/log
 ```
 ---
 ## Examples
 ```go
 log.Logger().WithField("port", ":8080").Debugln("Start server")
-r.HandleFunc(log.GetHandlerUrl(), log.Handler)
-r.HandleFunc(log.GetStatUrl(), log.HandlerStat)
+
+r.HandleFunc(log.GetUrlHandler(), log.GetUrlGeneral)
+r.HandleFunc(log.GetUrlLog(), log.HandlerLog)
+r.HandleFunc(log.GetUrlStat(), log.HandlerStat)
 ```
 задать новую длину в консоли
 ```go
@@ -21,6 +23,8 @@ log.NewCountLenStrLog(55)
 /admin/stat
 /admin/log
 ```
+log.SetGeneralUrl("/tool/")
+log.GetUrlHandler()
 
 ---
 ## Stat

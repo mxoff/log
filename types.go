@@ -10,7 +10,7 @@ type printType struct {
 	Message string
 }
 
-type statType struct {
+type statErrorType struct {
 	Start      string
 	CountError int
 	CountLog   int
