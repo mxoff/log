@@ -1,31 +1,31 @@
 package log
 
-func (l *logType) Println(message string) {
+func (l *logType) Println(message ...string) {
 	l.types = "INFO"
 	l.color = colors["white"]
-	l.message = message
-	l.print()
+
+	l.print(message)
 }
 
-func (l *logType) Errorln(message string) {
+func (l *logType) Errorln(message ...string) {
 	l.types = "ERRO"
 	l.color = colors["red"]
-	l.message = message
-	l.print()
+
+	l.print(message)
 }
 
-func (l *logType) Warningln(message string) {
+func (l *logType) Warningln(message ...string) {
 	l.types = "WARN"
 	l.color = colors["yellow"]
-	l.message = message
-	l.print()
+
+	l.print(message)
 }
 
-func (l *logType) Debugln(message string) {
+func (l *logType) Debugln(message ...string) {
 	l.types = "DEBU"
 	l.color = colors["gray"]
-	l.message = message
-	l.print()
+
+	l.print(message)
 }
 
 func (l *logType) ErrorNoNil(err error) {
@@ -33,6 +33,6 @@ func (l *logType) ErrorNoNil(err error) {
 		l.types = "ERRO"
 		l.color = colors["red"]
 		l.message = err.Error()
-		l.print()
+		l.print([]string{})
 	}
 }

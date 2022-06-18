@@ -11,7 +11,11 @@ var countLen = 60
 
 const layout = "02.01.2006 15:04:05"
 
-func (l *logType) print() {
+func (l *logType) print(message []string) {
+	for i := range message {
+		l.message += message[i]
+	}
+
 	fields := ""
 	for _, v := range l.fields {
 		fields += fmt.Sprintf(" %s=%s ", addColor(l.color, v.key), v.val)
